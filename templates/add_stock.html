@@ -1,0 +1,80 @@
+
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+{% block content %}
+
+
+
+
+
+
+Add Stock
+
+
+
+
+<form action="{% url 'add_stock' %}"  class="d-flex" method="POST">
+       {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Get Stock Quote" aria-label="Search" name="ticker">
+        <button class="btn btn-outline-success" type="submit">Stock </button>
+      </form>
+
+<br>
+
+
+
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark ">
+    <tr>
+      <th scope="col">Company Name</th>
+      <th scope="col">Previous Close</th>
+      <th scope="col">Market Cap</th>
+      <th scope="col">Current Price</th>
+      <th scope="col">52 Wk High</th>
+      <th scope="col">52 Wk Low</th>
+      <th scope="col">YTD change</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+
+{% if ticker %}
+   
+    <tr>
+    {% for api in output%}
+      <th scope="row">{{ api.companyName }}</th>
+      
+      {% comment %} <td>{{ api.companyName }}</td> {% endcomment %}
+      <td>{{ api.previousClose }}</td>
+      <td>{{ api.marketCap }}</td>
+      <td>{{ api.latestPrice }}</td>
+      <td>{{ api.week52High  }}</td>
+      <td>{{ api.week52Low|mul:0.0010  }}</td>
+      <td>{{ api.ytdChange }}</td>
+        
+      </tr>  
+    {% endfor %}
+    
+    
+
+    {% endif %}
+  </tbody>
+</table>
+
+
+{% for api in output%}
+{{ api.previousClose }}<br>
+{% endfor %}
+
+
+
+
+
+
+
+
+<br>
+
+
+{% endblock %}

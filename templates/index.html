@@ -1,0 +1,36 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+
+{% if ticker %}
+{{ ticker}}
+
+{% endif %}
+
+{% if api %}
+    {% if api == "error .." %}
+    <h2>There was an errror searching for your stock</h2>
+
+    {% else %}
+
+    
+
+    <h1>{{ api.companyName }}</h1><br>
+    Price :${{ api.latestPrice  }}<br>
+    Market Cap :${{ api.marketCap   }}<br>
+    52 Wk High :${{ api.week52High  }}<br>
+    52 Wk Low :${{ api.week52Low  }}<br>
+
+
+    
+
+    {% endif%}
+
+
+{% endif %}
+
+{% endblock %}
